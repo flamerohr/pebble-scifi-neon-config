@@ -1,0 +1,8 @@
+@mixin bw {
+  --text-color: #f5f7fb;
+  --background-color: #020617;
+}
+
+.bw {
+  @include bw;
+}
