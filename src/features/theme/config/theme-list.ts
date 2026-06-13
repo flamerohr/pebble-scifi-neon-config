@@ -4,21 +4,27 @@ import bwTheme from "../color/bw.module.scss";
 interface ThemeOption {
   value: number;
   label: string;
-  bw?: boolean;
   className: string;
-  altClassName?: string;
 }
 
-export const themeList: ThemeOption[] = [
-  {
-    value: 0,
-    label: "Neon colours",
-    className: neonTheme.neon,
-  },
-  {
-    value: 1,
-    label: "Black & white",
-    className: bwTheme.bw,
-    bw: true,
-  },
-];
+export const getThemeList = (bw = false): ThemeOption[] =>
+  !bw
+    ? [
+        {
+          value: 0,
+          label: "Neon colours",
+          className: neonTheme.neon,
+        },
+        {
+          value: 1,
+          label: "Black & white",
+          className: bwTheme.bw,
+        },
+      ]
+    : [
+        {
+          value: 1,
+          label: "Black & white",
+          className: bwTheme.bw,
+        },
+      ];

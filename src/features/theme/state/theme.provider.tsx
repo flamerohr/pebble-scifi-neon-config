@@ -7,7 +7,7 @@ import {
   type PropsWithChildren,
 } from "react";
 import { ThemeContext } from "#features/theme/state/theme.context";
-import { themeList } from "../config/theme-list";
+import { getThemeList } from "../config/theme-list";
 
 import "../size.scss";
 
@@ -17,31 +17,29 @@ export const ThemeProvider: FC<PropsWithChildren<{ bw?: boolean }>> = ({
 }) => {
   const [color, setColor] = useState<number>(0);
 
-  const updateColor = useCallback((newColor: number) => {
-    if (newColor >= themeList.length) {
-      return;
-    }
-    setColor(newColor);
-  }, []);
+  const themeList = useMemo(() => getThemeList(bw), [getThemeList, bw]);
+
+  const updateColor = useCallback(
+    (newColor: number) => {
+      if (!themeList.find(({ value }) => value === newColor)) {
+        return;
+      }
+      setColor(newColor);
+    },
+    [themeList],
+  );
 
   useEffect(() => {
-    let className;
-    if (bw) {
-      className = themeList.find(({ value }) => value === 1)?.className || "";
-    } else {
-      className =
-        (themeList.find(({ value }) => value === color) || themeList[0])
-          ?.className || "";
-    }
+    const className =
+      (themeList.find(({ value }) => value === color) || themeList[0])
+        ?.className || "";
 
     document.documentElement.classList.add(className);
 
     return () => {
       document.documentElement.classList.remove(className);
     };
-    // add theme list to deps in case the list updates for hot reload
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [color]);
+  }, [color, themeList]);
 
   const context = useMemo(
     () => ({ color, setColor: updateColor }),

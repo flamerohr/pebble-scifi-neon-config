@@ -1,11 +1,14 @@
 import { FormProvider, useForm } from "react-hook-form";
-import { themeList } from "#features/theme/config/theme-list";
+import { getThemeList } from "#features/theme/config/theme-list";
 import { useCallback, useEffect, useMemo, useState, type FC } from "react";
 import Button from "#components/button/button";
 import type { ConfigFormValues } from "./config-form.types";
 import { defaultConfig } from "./helpers/default-config";
+import Select from "#components/form/select/select";
 
 import s from "./config-form.module.scss";
+import { getBorderTypeList } from "./helpers/border-type-list";
+import WatchPreview from "#components/watch-preview/watch-preview";
 
 export const ConfigForm: FC<{
   defaultValues: ConfigFormValues;
@@ -13,7 +16,7 @@ export const ConfigForm: FC<{
   submitUrl: string;
 }> = ({ defaultValues, bw, submitUrl }) => {
   const formMethods = useForm<ConfigFormValues>({
-    defaultValues: { ...defaultConfig, Theme: bw ? "2" : "0" },
+    defaultValues: defaultConfig,
   });
   const [initialised, setInitialised] = useState(false);
 
@@ -22,20 +25,15 @@ export const ConfigForm: FC<{
     handleSubmit,
     reset,
     setValue,
+    watch,
     formState: { isDirty },
   } = formMethods;
 
-  const themeOptions = useMemo(
-    () =>
-      themeList
-        .filter((option) => !bw || option.bw)
-        .map(({ value, label, className, altClassName }) => ({
-          value,
-          label,
-          theme: className,
-          themeAlt: altClassName,
-        })),
-    [],
+  const themeList = useMemo(() => getThemeList(bw), [getThemeList, bw]);
+
+  const borderTypeList = useMemo(
+    () => getBorderTypeList(bw),
+    [getBorderTypeList, bw],
   );
 
   useEffect(() => {
@@ -47,14 +45,26 @@ export const ConfigForm: FC<{
       const name = n as keyof ConfigFormValues;
       let value = defaultValues[name];
       if (name === "Theme") {
-        value = String(value);
-        if (bw) {
-          value = value === "3" ? "3" : "2";
+        const theme = themeList.find(
+          ({ value: themeId }) => themeId === Number(value),
+        );
+        if (!theme) {
+          return;
         }
+        value = String(theme.value);
+      }
+      if (name === "BorderType") {
+        const borderType = borderTypeList.find(
+          ({ value: borderTypeId }) => borderTypeId === Number(value),
+        );
+        if (!borderType) {
+          return;
+        }
+        value = String(borderType.value);
       }
       setValue(name, value);
     });
-  }, []);
+  }, [themeList]);
 
   const applyChanges = useCallback(
     (values: ConfigFormValues) => {
@@ -77,21 +87,20 @@ export const ConfigForm: FC<{
     window.location.href = submitUrl;
   }, []);
 
+  const formValues = watch();
+
+  console.log(formValues);
   return (
     <FormProvider {...formMethods}>
       <form className={s.form} onSubmit={handleSubmit(applyChanges)}>
+        <WatchPreview className={s.preview} bw={bw} config={formValues} />
         <div className={s.fields}>
-          {/*<Select
-            options={themeOptions}
-            {...register("Theme", { valueAsNumber: true })}
-            label="Theme"
-          />*/}
-          {/*<RadioThemebox
-            name="Theme"
-            label="Theme"
-            options={themeOptions}
-            radioProps={register("Theme")}
-          />*/}
+          <Select options={themeList} {...register("Theme")} label="Theme" />
+          <Select
+            options={borderTypeList}
+            {...register("BorderType")}
+            label="Border type"
+          />
         </div>
         <footer className={s.footer}>
           <div className={s.footerbuttons}>
