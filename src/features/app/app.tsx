@@ -1,10 +1,12 @@
 import ConfigForm from "#features/config-form/config-form";
 import Providers from "./components/providers";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import type { ConfigFormValues } from "#features/config-form/config-form.types";
 import { defaultConfig } from "#features/config-form/helpers/default-config";
 
 import s from "./app.module.scss";
+import theme from "#features/theme/color/site.module.scss";
+import "#features/theme/size.scss";
 
 export const App = () => {
   const params = useMemo(() => {
@@ -23,6 +25,14 @@ export const App = () => {
       return defaultConfig;
     }
   }, [param]);
+
+  useEffect(() => {
+    document.documentElement.classList.add(theme.site);
+
+    return () => {
+      document.documentElement.classList.remove(theme.site);
+    };
+  }, []);
 
   return (
     <>

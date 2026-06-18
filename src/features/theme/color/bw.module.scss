@@ -1,6 +1,18 @@
 @mixin bw {
   --text-color: #f5f7fb;
   --background-color: #020617;
+
+  --inactive-color: #020617;
+  --active-time-color: #ffffff;
+  --active-colon-color: #ffffff;
+  --active-period-color: #ffffff;
+  --active-bluetooth-color: #ffffff;
+  --active-battery-color: #ffffff;
+  --border-battery-color: #ffffff;
+  --active-day-color: #ffffff;
+  --active-date-color: #ffffff;
+  --border-color-1: #ffffff;
+  --border-color-2: #ffffff;
 }
 
 .bw {

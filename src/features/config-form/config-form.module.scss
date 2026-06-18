@@ -12,6 +12,7 @@
     "preview"
     "fields"
     "footer";
+  gap: var(--spacing-4);
 
   background: var(--background-color);
   color: var(--text-color);
@@ -29,9 +30,11 @@
 
 .preview {
   grid-area: preview;
+  padding: 0 0 0 var(--spacing-4);
 }
 
 .fields {
+  padding: 0 var(--spacing-4) var(--spacing-5);
   grid-area: fields;
   flex: 1;
   display: flex;
@@ -41,7 +44,10 @@
   max-width: var(--container-width);
   margin: 0 auto;
   gap: var(--spacing-5);
-  padding: 0 var(--spacing-4) var(--spacing-5);
+
+  @media screen and (min-width: 600px) {
+    padding-left: 0;
+  }
 }
 
 .footer {

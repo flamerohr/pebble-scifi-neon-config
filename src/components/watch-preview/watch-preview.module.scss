@@ -1,0 +1,50 @@
+.preview {
+  margin: var(--spacing-2) auto;
+  background-color: var(--background-color);
+}
+
+.image {
+  :global {
+    .time-active {
+      fill: var(--active-time-color);
+    }
+    .colon-active {
+      fill: var(--active-colon-color);
+    }
+    .inactive {
+      fill: var(--inactive-color);
+    }
+    .period-active {
+      fill: var(--active-period-color);
+    }
+    .bluetooth-active {
+      fill: var(--active-bluetooth-color);
+    }
+    .battery-active {
+      fill: var(--active-battery-color);
+    }
+    .battery-border {
+      fill: var(--border-battery-color);
+    }
+    .day-active {
+      fill: var(--active-day-color);
+    }
+    .date-active {
+      fill: var(--active-date-color);
+    }
+    .border {
+      &-1 {
+        stroke: var(--border-color-1);
+      }
+      &-2 {
+        stroke: var(--border-color-2);
+      }
+    }
+  }
+}
+
+.emery {
+  width: min(200px, 100%);
+  max-height: min(228px, 100%);
+  aspect-ratio: 200 / 228;
+}

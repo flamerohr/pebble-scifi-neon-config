@@ -1,6 +1,18 @@
 @mixin neon {
   --text-color: #f5f7fb;
-  --background-color: #020617;
+  --background-color: #000000;
+
+  --inactive-color: #000055;
+  --active-time-color: #55ff00;
+  --active-colon-color: #55aa00;
+  --active-period-color: #00ffff;
+  --active-bluetooth-color: #00ffff;
+  --active-battery-color: #00ffff;
+  --border-battery-color: #55aa00;
+  --active-day-color: #00ffff;
+  --active-date-color: #00ffff;
+  --border-color-1: #ff55ff;
+  --border-color-2: #ff00ff;
 }
 
 .neon {

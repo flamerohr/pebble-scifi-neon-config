@@ -89,11 +89,12 @@ export const ConfigForm: FC<{
 
   const formValues = watch();
 
-  console.log(formValues);
   return (
     <FormProvider {...formMethods}>
       <form className={s.form} onSubmit={handleSubmit(applyChanges)}>
-        <WatchPreview className={s.preview} bw={bw} config={formValues} />
+        <div className={s.preview}>
+          <WatchPreview bw={bw} config={formValues} />
+        </div>
         <div className={s.fields}>
           <Select options={themeList} {...register("Theme")} label="Theme" />
           <Select
