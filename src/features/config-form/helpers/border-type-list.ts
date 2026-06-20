@@ -3,14 +3,14 @@ export interface BorderTypeOption {
   label: string;
 }
 
-export const getBorderTypeList = (bw = false): BorderTypeOption[] => [
+export const getBorderTypeList = (): BorderTypeOption[] => [
   {
     value: 1,
-    label: "Default Neon",
+    label: "Default",
   },
   { value: 0, label: "No border" },
   {
     value: 2,
-    label: "Neon boxed",
+    label: "Tightly boxed",
   },
 ];

@@ -5,10 +5,10 @@ import Button from "#components/button/button";
 import type { ConfigFormValues } from "./config-form.types";
 import { defaultConfig } from "./helpers/default-config";
 import Select from "#components/form/select/select";
-
-import s from "./config-form.module.scss";
 import { getBorderTypeList } from "./helpers/border-type-list";
 import WatchPreview from "#components/watch-preview/watch-preview";
+
+import s from "./config-form.module.scss";
 
 export const ConfigForm: FC<{
   defaultValues: ConfigFormValues;
@@ -32,8 +32,8 @@ export const ConfigForm: FC<{
   const themeList = useMemo(() => getThemeList(bw), [getThemeList, bw]);
 
   const borderTypeList = useMemo(
-    () => getBorderTypeList(bw),
-    [getBorderTypeList, bw],
+    () => getBorderTypeList(),
+    [getBorderTypeList],
   );
 
   useEffect(() => {
