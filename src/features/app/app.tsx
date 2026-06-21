@@ -1,6 +1,6 @@
 import ConfigForm from "#features/config-form/config-form";
 import Providers from "./components/providers";
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import type { ConfigFormValues } from "#features/config-form/config-form.types";
 import { defaultConfig } from "#features/config-form/helpers/default-config";
 
@@ -26,6 +26,10 @@ export const App = () => {
     }
   }, [param]);
 
+  const refresh = useCallback(() => {
+    window.location.reload();
+  }, []);
+
   useEffect(() => {
     document.documentElement.classList.add(theme.site);
 
@@ -36,7 +40,14 @@ export const App = () => {
 
   return (
     <>
-      <header className={s.header}>Scifi Neon config</header>
+      <header className={s.header}>
+        Scifi Neon config{" "}
+        {params.has("rand") && (
+          <div className={s.version} onClick={refresh}>
+            v{params.get("rand")}
+          </div>
+        )}
+      </header>
       <div className={s.appcontainer}>
         <ConfigForm
           defaultValues={config}

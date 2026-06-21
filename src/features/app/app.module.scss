@@ -22,3 +22,10 @@
 
   padding-top: 50px;
 }
+
+.version {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: var(--text-size-xs);
+}
