@@ -1,5 +1,6 @@
 .form {
   width: 100%;
+  max-width: var(--container-width);
 
   flex: 1;
   display: grid;
