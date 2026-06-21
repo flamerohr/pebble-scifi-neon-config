@@ -66,17 +66,18 @@ export const ConfigForm: FC<{
     });
   }, [themeList]);
 
-  const applyChanges = useCallback(
-    (values: ConfigFormValues) => {
-      const params = {
-        Theme: values.Theme && Number(values.Theme),
-        BorderType: values.BorderType && Number(values.BorderType),
-      };
-      console.log("Submitting values: ", JSON.stringify(params));
-      window.location.href =
-        submitUrl + encodeURIComponent(JSON.stringify(params));
-    },
-    [submitUrl],
+  const applyChanges = useMemo(
+    () =>
+      handleSubmit((values: ConfigFormValues) => {
+        const params = {
+          Theme: values.Theme && Number(values.Theme),
+          BorderType: values.BorderType && Number(values.BorderType),
+        };
+        console.log("Submitting values: ", JSON.stringify(params));
+        window.location.href =
+          submitUrl + encodeURIComponent(JSON.stringify(params));
+      }),
+    [handleSubmit, submitUrl],
   );
 
   const resetToDefault = useCallback(() => {
@@ -91,7 +92,7 @@ export const ConfigForm: FC<{
 
   return (
     <FormProvider {...formMethods}>
-      <form className={s.form} onSubmit={handleSubmit(applyChanges)}>
+      <form className={s.form} onSubmit={applyChanges}>
         <div className={s.preview}>
           <WatchPreview bw={bw} config={formValues} />
         </div>
@@ -112,7 +113,9 @@ export const ConfigForm: FC<{
               <Button onClick={resetToDefault}>Reset defaults</Button>
             )}
           </div>
-          <Button type="submit">Apply</Button>
+          <Button type="submit" onClick={applyChanges}>
+            Apply
+          </Button>
         </div>
       </footer>
     </FormProvider>
