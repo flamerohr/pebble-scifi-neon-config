@@ -5,11 +5,11 @@
   font-size: var(--text-size-xl);
 
   background: var(--background-color);
-  color: var(--text-color);
+  color: var(--title-color);
 
   padding: var(--spacing-2) var(--spacing-4);
 
-  border-bottom: 1px solid var(--text-color);
+  border-bottom: 1px solid var(--border-highlight-color);
   height: 50px;
   width: 100%;
 }

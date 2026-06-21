@@ -1,18 +1,17 @@
 .form {
   width: 100%;
   max-width: var(--container-width);
+  margin: 0 auto;
 
   flex: 1;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows:
     auto
-    1fr
-    auto;
+    1fr;
   grid-template-areas:
     "preview"
-    "fields"
-    "footer";
+    "fields";
   gap: var(--spacing-4);
 
   background: var(--background-color);
@@ -23,15 +22,18 @@
     grid-template-rows:
       1fr
       auto;
-    grid-template-areas:
-      "preview fields"
-      "footer footer";
+    grid-template-areas: "preview fields";
   }
 }
 
 .preview {
   grid-area: preview;
-  padding: 0 0 0 var(--spacing-4);
+  align-self: center;
+  padding: var(--spacing-4) 0 0 0;
+
+  @media screen and (min-width: 600px) {
+    padding: 0 0 0 var(--spacing-4);
+  }
 }
 
 .fields {
@@ -47,19 +49,18 @@
   gap: var(--spacing-5);
 
   @media screen and (min-width: 600px) {
-    padding-left: 0;
+    padding: var(--spacing-5) var(--spacing-4) var(--spacing-5) 0;
   }
 }
 
 .footer {
-  grid-area: footer;
   display: flex;
   flex-direction: row;
   justify-content: center;
   padding: var(--spacing-2) var(--spacing-4);
 
   background: var(--background-color);
-  border-top: 1px solid var(--text-color);
+  border-top: 1px solid var(--border-highlight-color);
 }
 
 .footerbuttons {

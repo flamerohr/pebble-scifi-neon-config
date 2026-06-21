@@ -1,6 +1,11 @@
 @mixin site {
   --text-color: #f5f7fb;
   --background-color: #020617;
+
+  --border-highlight-color: #ff55ff;
+  --title-color: #55ff00;
+  --label-color: #00ffff;
+  --border-subtle-color: #727687;
 }
 
 .site {

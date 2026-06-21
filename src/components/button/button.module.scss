@@ -1,9 +1,9 @@
 .button {
   padding: var(--spacing-2) var(--spacing-4);
-  color: var(--text-color);
+  color: var(--label-color);
   background: var(--background-color);
   border-radius: var(--border-radius-2);
-  border: 1px solid var(--text-color);
+  border: 1px solid var(--border-subtle-color);
 
   &:hover,
   &focus {

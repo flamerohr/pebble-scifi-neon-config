@@ -103,18 +103,18 @@ export const ConfigForm: FC<{
             label="Border type"
           />
         </div>
-        <footer className={s.footer}>
-          <div className={s.footerbuttons}>
-            <div className={s.footerbuttongroup}>
-              <Button onClick={close}>Close</Button>
-              {isDirty && (
-                <Button onClick={resetToDefault}>Reset defaults</Button>
-              )}
-            </div>
-            <Button type="submit">Apply</Button>
-          </div>
-        </footer>
       </form>
+      <footer className={s.footer}>
+        <div className={s.footerbuttons}>
+          <div className={s.footerbuttongroup}>
+            <Button onClick={close}>Close</Button>
+            {isDirty && (
+              <Button onClick={resetToDefault}>Reset defaults</Button>
+            )}
+          </div>
+          <Button type="submit">Apply</Button>
+        </div>
+      </footer>
     </FormProvider>
   );
 };
