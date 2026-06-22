@@ -80,9 +80,10 @@ export const ConfigForm: FC<{
           Theme: values.Theme && Number(values.Theme),
           BorderType: values.BorderType && Number(values.BorderType),
         };
-        console.log("Submitting values: ", JSON.stringify(params));
-        window.location.href =
-          submitUrl + encodeURIComponent(JSON.stringify(params));
+        const data = JSON.stringify(params);
+        console.log("Submitting values: ", data);
+        localStorage.setItem("config", data);
+        window.location.href = submitUrl + encodeURIComponent(data);
       }),
     [handleSubmit, submitUrl],
   );

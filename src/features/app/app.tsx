@@ -16,12 +16,18 @@ export const App = () => {
   const param = params.get("config");
 
   const config = useMemo<ConfigFormValues>(() => {
+    const storage = localStorage.getItem("config");
+    if (storage) {
+      try {
+        return { ...defaultConfig, ...JSON.parse(storage) };
+      } catch (e) {}
+    }
     if (param == null) {
       return defaultConfig;
     }
     try {
       return { ...defaultConfig, ...JSON.parse(param) };
-    } catch {
+    } catch (e) {
       return defaultConfig;
     }
   }, [param]);
