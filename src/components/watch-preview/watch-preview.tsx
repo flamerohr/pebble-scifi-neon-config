@@ -5,22 +5,24 @@ import { useMemo, type FC, type HTMLAttributes } from "react";
 import PreviewTime from "./components/preview-time";
 import PreviewDay from "./components/preview-day";
 import PreviewDate from "./components/preview-date";
-
-import s from "./watch-preview.module.scss";
 import PreviewBluetooth from "./components/preview-bluetooth";
 import PreviewPeriod from "./components/preview-period";
 import PreviewBattery from "./components/preview-battery";
 import { PreviewBorder } from "./components/preview-border";
 
+import s from "./watch-preview.module.scss";
+
 interface WatchPreviewProps extends HTMLAttributes<HTMLDivElement> {
   bw?: boolean;
   config: ConfigFormValues;
+  offset?: { top?: number; height?: number };
 }
 
 export const WatchPreview: FC<WatchPreviewProps> = ({
   className,
   bw,
   config,
+  offset,
 }) => {
   const themeList = useMemo(() => getThemeList(bw), [getThemeList, bw]);
   const themeClass = useMemo(
@@ -78,9 +80,9 @@ export const WatchPreview: FC<WatchPreviewProps> = ({
   }, [width, height, borderPadding, matrixSize]);
 
   return (
-    <div className={classNames(className, themeClass, s.preview, s.emery)}>
+    <div className={classNames(themeClass, s.preview)} style={offset}>
       <svg
-        className={classNames(s.image)}
+        className={classNames(className, s.image)}
         viewBox={`0 0 ${width} ${height}`}
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

@@ -15,6 +15,13 @@ export const ConfigForm: FC<{
   bw?: boolean;
   submitUrl: string;
 }> = ({ defaultValues, bw, submitUrl }) => {
+  const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
+  const [offset, setOffset] = useState({
+    top: 0,
+    left: 0,
+    width: 0,
+    height: 0,
+  });
   const formMethods = useForm<ConfigFormValues>({
     defaultValues: defaultConfig,
   });
@@ -90,11 +97,39 @@ export const ConfigForm: FC<{
 
   const formValues = watch();
 
+  useEffect(() => {
+    if (!containerRef) {
+      return;
+    }
+    const calcOffset = () => {
+      const { left, width, height } = containerRef.getBoundingClientRect();
+      const top = containerRef.parentElement?.offsetTop || 0;
+
+      setOffset({ top, left, width, height });
+    };
+
+    window.addEventListener("scroll", calcOffset);
+    window.addEventListener("resize", calcOffset);
+
+    calcOffset();
+
+    return () => {
+      window.removeEventListener("scroll", calcOffset);
+      window.removeEventListener("resize", calcOffset);
+    };
+  }, [containerRef]);
+
   return (
     <FormProvider {...formMethods}>
       <form className={s.form} onSubmit={applyChanges}>
         <div className={s.preview}>
-          <WatchPreview bw={bw} config={formValues} />
+          <div className={s.emery} ref={setContainerRef} />
+          <WatchPreview
+            className={s.emery}
+            bw={bw}
+            config={formValues}
+            offset={offset}
+          />
         </div>
         <div className={s.fields}>
           <Select options={themeList} {...register("Theme")} label="Theme" />

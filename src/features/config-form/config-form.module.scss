@@ -4,35 +4,37 @@
   margin: 0 auto;
 
   flex: 1;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows:
-    auto
-    1fr;
-  grid-template-areas:
-    "preview"
-    "fields";
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: var(--spacing-4);
 
   background: var(--background-color);
   color: var(--text-color);
 
   @media screen and (min-width: 600px) {
-    grid-template-columns: 200px 1fr;
-    grid-template-rows:
-      1fr
-      auto;
-    grid-template-areas: "preview fields";
+    flex-direction: row;
+    align-items: flex-start;
   }
 }
 
 .preview {
   grid-area: preview;
-  align-self: center;
-  padding: var(--spacing-4) 0 0 0;
+  max-height: 100%;
+  position: relative;
+  overflow-y: auto;
+  margin: var(--spacing-6) 0 var(--spacing-2);
+  width: 100%;
+  background: var(--background-color);
+  z-index: 9;
+
+  > * {
+    margin: 0 auto;
+  }
 
   @media screen and (min-width: 600px) {
-    padding: 0 0 0 var(--spacing-4);
+    width: min(200px, 100%);
+    margin: var(--spacing-2) auto;
   }
 }
 
@@ -45,6 +47,8 @@
   align-items: stretch;
   width: 100%;
   max-width: var(--container-width);
+  height: 100%;
+  overflow-y: auto;
   margin: 0 auto;
   gap: var(--spacing-5);
 
@@ -61,6 +65,7 @@
 
   background: var(--background-color);
   border-top: 1px solid var(--border-highlight-color);
+  z-index: 10;
 }
 
 .footerbuttons {
@@ -81,4 +86,10 @@
   align-items: flex-start;
   justify-content: flex-start;
   gap: var(--spacing-3);
+}
+
+.emery {
+  width: min(200px, 100%);
+  max-height: min(228px, 100%);
+  aspect-ratio: 200 / 228;
 }
