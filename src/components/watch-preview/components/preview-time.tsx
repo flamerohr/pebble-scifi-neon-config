@@ -20,7 +20,7 @@ export const PreviewTime: FC<PreviewTimeProps> = ({
         transform={`translate(${5 * scale * 0} 0) scale(${scale})`}
       />
       <SevenSegment
-        digit={4}
+        digit={1}
         transform={`translate(${5 * scale * 1} 0) scale(${scale})`}
       />
       <ColonSegment
