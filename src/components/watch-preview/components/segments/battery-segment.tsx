@@ -40,6 +40,7 @@ export const BatterySegment: FC<BatterySegmentProps> = ({
           }
           return (
             <rect
+              key={`dot-${i}-${j}`}
               x={j * (matrixSize + 1)}
               y={i * (matrixSize + 1)}
               width={matrixSize}

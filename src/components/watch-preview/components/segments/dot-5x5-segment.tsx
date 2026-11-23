@@ -24,6 +24,7 @@ export const Dot5x5Segment: FC<Dot5x5SegmentProps> = ({
       {[...Array(5)].map((_, i) =>
         [...Array(5)].map((_, j) => (
           <rect
+            key={`dot-${i}-${j}`}
             x={j * (matrixSize + 1)}
             y={i * (matrixSize + 1)}
             width={matrixSize}
