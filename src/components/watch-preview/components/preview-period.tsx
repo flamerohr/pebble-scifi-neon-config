@@ -3,27 +3,31 @@ import { Dot5x5Segment } from "./segments/dot-5x5-segment";
 
 interface PreviewPeriodProps extends SVGAttributes<SVGElement> {
   borderPadding: { w: number; h: number };
-  heightOffset: number;
+  height: number;
   matrixSize?: number;
   width: number;
+  scale: number;
 }
 
 const gap = 3;
 
 export const PreviewPeriod: FC<PreviewPeriodProps> = ({
   borderPadding,
-  heightOffset,
-  width,
+  height: heightParam,
+  width: widthParam,
   matrixSize = 4,
+  scale = 1,
   ...props
 }) => {
-  const [segmentSize, widthOffset] = useMemo(() => {
+  const [segmentSize, widthOffset, heightOffset] = useMemo(() => {
     const size = matrixSize * 5 + 4;
 
-    const offset = Math.round(width - borderPadding.w - (size * 2 + gap * 1));
+    const width = Math.round(widthParam - borderPadding.w - (size * 2 + gap * 1) / 2);
 
-    return [size, offset];
-  }, [matrixSize, width]);
+    const height = Math.round(heightParam + 4.5 * scale - (size * 2 + gap * 1) / 2);
+
+    return [size, width, height];
+  }, [matrixSize, widthParam]);
 
   return (
     <g {...props} transform={`translate(${widthOffset} ${heightOffset})`}>
@@ -35,7 +39,7 @@ export const PreviewPeriod: FC<PreviewPeriodProps> = ({
       <Dot5x5Segment
         letter="M"
         activeClassName="period-active"
-        transform={`translate(${segmentSize + gap} 0)`}
+        transform={`translate(0 ${segmentSize + gap})`}
         matrixSize={matrixSize}
       />
     </g>

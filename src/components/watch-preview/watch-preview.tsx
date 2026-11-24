@@ -6,7 +6,6 @@ import PreviewTime from "./components/preview-time";
 import PreviewDay from "./components/preview-day";
 import PreviewDate from "./components/preview-date";
 import PreviewBluetooth from "./components/preview-bluetooth";
-import PreviewPeriod from "./components/preview-period";
 import PreviewBattery from "./components/preview-battery";
 import { PreviewBorder } from "./components/preview-border";
 
@@ -16,6 +15,7 @@ interface WatchPreviewProps extends HTMLAttributes<HTMLDivElement> {
   bw?: boolean;
   config: ConfigFormValues;
   offset?: { top?: number; height?: number };
+  time12h?: boolean;
 }
 
 export const WatchPreview: FC<WatchPreviewProps> = ({
@@ -23,6 +23,7 @@ export const WatchPreview: FC<WatchPreviewProps> = ({
   bw,
   config,
   offset,
+  time12h,
 }) => {
   const themeList = useMemo(() => getThemeList(bw), [getThemeList, bw]);
   const themeClass = useMemo(
@@ -107,21 +108,18 @@ export const WatchPreview: FC<WatchPreviewProps> = ({
           width={width}
           matrixSize={matrixSize}
         />
-        <PreviewPeriod
-          borderPadding={borderPadding}
-          heightOffset={bluetoothOffset}
-          width={width}
-          matrixSize={matrixSize}
-        />
         <PreviewBattery
           heightOffset={batteryOffset}
           width={width}
           matrixSize={matrixSize}
         />
         <PreviewTime
+          time12h={time12h}
           borderPadding={borderPadding}
           scale={timeScale}
+          width={width}
           heightOffset={timeOffset}
+          matrixSize={matrixSize}
         />
       </svg>
     </div>

@@ -1,6 +1,6 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { getThemeList } from "#features/theme/config/theme-list";
-import { useCallback, useEffect, useMemo, useState, type FC } from "react";
+import { useCallback, useEffect, useMemo, useState, type ChangeEventHandler, type FC } from "react";
 import Button from "#components/button/button";
 import type { ConfigFormValues } from "./config-form.types";
 import { defaultConfig } from "./helpers/default-config";
@@ -9,6 +9,7 @@ import { getBorderTypeList } from "./helpers/border-type-list";
 import WatchPreview from "#components/watch-preview/watch-preview";
 
 import s from "./config-form.module.scss";
+import Checkbox from "#components/form/checkbox/checkbox";
 
 export const ConfigForm: FC<{
   defaultValues: ConfigFormValues;
@@ -16,6 +17,7 @@ export const ConfigForm: FC<{
   submitUrl: string;
 }> = ({ defaultValues, bw, submitUrl }) => {
   const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
+  const [time12h, setTime12h] = useState(false);
   const [offset, setOffset] = useState({
     top: 0,
     left: 0,
@@ -42,6 +44,10 @@ export const ConfigForm: FC<{
     () => getBorderTypeList(),
     [getBorderTypeList],
   );
+
+  const updateTime12h: ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
+    setTime12h(e.currentTarget.checked);
+  }, [])
 
   useEffect(() => {
     if (initialised) {
@@ -130,7 +136,9 @@ export const ConfigForm: FC<{
             bw={bw}
             config={formValues}
             offset={offset}
+            time12h={time12h}
           />
+          <Checkbox name="time12h" checked={time12h} onChange={updateTime12h} label={time12h ? "AM/PM" : "24 Hour"} />
         </div>
         <div className={s.fields}>
           <Select options={themeList} {...register("Theme")} label="Theme" />
